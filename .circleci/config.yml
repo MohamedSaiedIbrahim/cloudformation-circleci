@@ -43,7 +43,7 @@ jobs:
       - run:
           name: "Server configuration using ansible"
           command: |
-            ansible-playbook -i inventory.txt main.yml
+            ansible-playbook -i inventory.txt main.yml --key ~/.ssh/id_rsa_5403092efdb304d1998499a1fd4a4106
 
 workflows:
   welcome:
