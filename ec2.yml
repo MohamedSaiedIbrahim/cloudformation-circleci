@@ -1,4 +1,3 @@
-# Exercise - Rollback
 AWSTemplateFormatVersion: 2010-09-09
 Description: Create simple EC2
 Resources:
@@ -22,8 +21,4 @@ Resources:
         - IpProtocol: tcp
           FromPort: '80'
           ToPort: '80'
-          CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp
-          FromPort: '3000'
-          ToPort: '3000'
           CidrIp: 0.0.0.0/0
