@@ -1,0 +1,24 @@
+version: 2.1
+
+jobs:
+  provision-infrastructure:
+    docker:
+      - image: amazon/aws-cli
+
+    steps:
+      - checkout
+      - run:
+          name: "Provision Infrastructure using CloudFormation"
+          command: |
+            aws cloudformation deploy --template-file ec2.yml --stack-name web --region us-east-1
+
+  # print_world:
+  #   docker:
+  #     - image: alpine:latest
+  #   steps:
+  #     - run: echo world
+
+workflows:
+  welcome:
+    jobs:
+      - provision-infrastructure
