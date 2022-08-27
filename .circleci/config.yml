@@ -33,8 +33,8 @@ jobs:
             apk add ansible gzip openssh-client
       - attach_workspace:
           at: .
-      # - add_ssh_keys:
-      #     fingerprints: ["54:03:09:2e:fd:b3:04:d1:99:84:99:a1:fd:4a:41:06"]
+      - add_ssh_keys:
+          fingerprints: ["54:03:09:2e:fd:b3:04:d1:99:84:99:a1:fd:4a:41:06"]
       - run:
           name: "Install Dependencies"
           command: |
