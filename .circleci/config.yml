@@ -10,7 +10,7 @@ jobs:
       - run:
           name: "Provision Infrastructure using CloudFormation"
           command: |
-            yum install -y gzip
+            yum install -y tar
             aws cloudformation deploy --template-file ec2.yml --stack-name web --region us-east-1
             echo "[web]" > inventory.txt
             aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
