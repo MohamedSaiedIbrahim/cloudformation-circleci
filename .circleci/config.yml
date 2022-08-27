@@ -10,13 +10,38 @@ jobs:
       - run:
           name: "Provision Infrastructure using CloudFormation"
           command: |
+            yum install -y gzip
             aws cloudformation deploy --template-file ec2.yml --stack-name web --region us-east-1
-
-  # print_world:
-  #   docker:
-  #     - image: alpine:latest
-  #   steps:
-  #     - run: echo world
+            echo "[web]" > inventory.txt
+            aws ec2 describe-instances --region us-east-1 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory.txt
+      - persist_to_workspace:
+          root: .
+          paths:
+            - inventory.txt
+  server-configuration:
+    docker:
+      - image: python:3.11.0rc1-alpine3.16
+    steps:
+      - run:
+          name: "Install Dependencies"
+          command: |
+            apk add ansible gzip openssh-client
+      - run:
+          name: "Install Dependencies"
+          command: |
+            apk add ansible gzip openssh-client
+      - attach_workspace:
+          at: .
+      - add_ssh_keys:
+          fingerprints: ["54:03:09:2e:fd:b3:04:d1:99:84:99:a1:fd:4a:41:06"]
+      - run:
+          name: "Install Dependencies"
+          command: |
+            apk add ansible gzip openssh-client
+      - run:
+          name: "Server configuration using ansible"
+          command: |
+            ansible-playbook -i inventory.txt main.yml
 
 workflows:
   welcome:
