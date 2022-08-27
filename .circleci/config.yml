@@ -38,7 +38,6 @@ jobs:
       - run:
           name: "Install Dependencies"
           command: |
-            ls ~/.ssh
             apk add ansible gzip openssh-client
       - run:
           name: "Server configuration using ansible"
@@ -48,7 +47,7 @@ jobs:
 workflows:
   welcome:
     jobs:
-      # - provision-infrastructure
-      - server-configuration
-          # requires: 
-          #   - provision-infrastructure
+      - provision-infrastructure
+      - server-configuration:
+          requires: 
+            - provision-infrastructure
